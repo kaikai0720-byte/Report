@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダム文章生成</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ランダム文章生成</h1>
+        <button onclick="displayLevel1Sentence()">レベル1の文章を生成</button>
+        <button onclick="displayLevel2Sentence()">レベル2の文章を生成</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateLevel1Sentence() {
+            const tree1Count = getRandomInt(1, 20);
+            const tree2Count = getRandomInt(1, 20);
+            const totalCount = tree1Count + tree2Count;
+
+            const sentence1 = `カブトムシが${tree1Count}ぴきいました。`;
+            const sentence2 = `もう１本の木には${tree2Count}ひきいました。`;
+            const sentence3 = `全部で何びきですか？`;
+
+            return `${sentence1} ${sentence2} ${sentence3}`;
+        }
+
+        function generateLevel2Sentence() {
+            const aoiCount = getRandomInt(1, 20);
+            const teacherCount = aoiCount + getRandomInt(1, 10);
+
+            const sentence1 = `あおいさんはゴミを${aoiCount}こひろいました。`;
+            const sentence2 = `先生はあおいさんより、${teacherCount - aoiCount}こ多くひろいました。`;
+            const sentence3 = `先生はゴミを何こひろいましたか？`;
+
+            return `${sentence1} ${sentence2} ${sentence3}`;
+        }
+
+        function displayLevel1Sentence() {
+            const sentence = generateLevel1Sentence();
+            displaySentence(sentence);
+        }
+
+        function displayLevel2Sentence() {
+            const sentence = generateLevel2Sentence();
+            displaySentence(sentence);
+        }
+
+        function displaySentence(sentence) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            const paragraph = document.createElement('p');
+            paragraph.className = 'result';
+            paragraph.textContent = sentence;
+            resultsDiv.appendChild(paragraph);
+        }
+    </script>
+</body>
+</html>
