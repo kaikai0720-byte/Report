@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合計テープ図の生成</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .tape-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .tape {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .tape-line {
+            height: 30px;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000;
+        }
+        .tape-line.tape1 {
+            background-color: #4CAF50;  /* テープ1の色 */
+        }
+        .tape-line.tape2 {
+            background-color: #FF5722;  /* テープ2の色 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>合計テープ図の生成</h1>
+        <div class="input-group">
+            <label for="num1">テープ1の長さ:</label>
+            <input type="number" id="num1" min="1" required>
+        </div>
+        <div class="input-group">
+            <label for="num2">テープ2の長さ:</label>
+            <input type="number" id="num2" min="1" required>
+        </div>
+        <button onclick="generateTape()">テープ図を生成</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function generateTape() {
+            const num1 = parseInt(document.getElementById('num1').value);
+            const num2 = parseInt(document.getElementById('num2').value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                alert('テープの長さを正しく入力してください。');
+                return;
+            }
+
+            const totalLength = num1 + num2;  // 合計の長さ
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            const tapeContainer = document.createElement('div');
+            tapeContainer.className = 'tape-container';
+
+            // 合計テープの生成
+            const totalTape = document.createElement('div');
+            totalTape.className = 'tape';
+            totalTape.style.width = `${totalLength * 30}px`;  // 合計テープの幅を設定
+            for (let i = 0; i < num1; i++) {
+                const line = document.createElement('div');
+                line.className = 'tape-line tape1';
+                totalTape.appendChild(line);
+            }
+            for (let i = 0; i < num2; i++) {
+                const line = document.createElement('div');
+                line.className = 'tape-line tape2';
+                totalTape.appendChild(line);
+            }
+
+            tapeContainer.appendChild(totalTape);
+            resultDiv.appendChild(tapeContainer);
+        }
+    </script>
+</body>
+</html>
